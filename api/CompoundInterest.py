@@ -13,7 +13,7 @@ app = Sanic(__name__)
 #   where 
 #       Total = the future value of the investment/loan, including interest
 #       P = the principal investment amount(the initial deposit or loan amount)
-#       PMT = the monthly payment
+#       Pmt = the monthly payment
 #       r = the annual interest rate(decimal)
 #       n = the number of times that interest is compounded per year, or variable t. 
 #           (365 = daily, 96 = 4× month or weekly, 48 = 3× month, 24 = 2× month, 12 = monthly, 4 = quarterly, etc.)
@@ -25,11 +25,11 @@ app = Sanic(__name__)
 async def calculate(request):
     data = request.json
     P = data['P']
-    PMT = data['PMT']
+    Pmt = data['PMT']
     r = data['r']
     n = data['n']
     t = data['t']
-    Total = (P(1+r/n) ^ (n*t)) + (PMT * (((1 + r/n) ^ (n*t) - 1) / (r/n)) * (1+r/n))
+    Total = (P(1+r/n) ^ (n*t)) + (Pmt * (((1 + r/n) ^ (n*t) - 1) / (r/n)) * (1+r/n))
     diff = Total - P
     pMonth = diff / n
     response = json({
