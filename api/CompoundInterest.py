@@ -21,8 +21,8 @@ app = Sanic(__name__)
 #
 # The values are received through sanic app.route /calculate endpoint as JSON key values 
 # and the result is returned in the same manner as a JSON object when the calculation is complete.
-@app.post('/calculate')
-async def calculate(request):
+@app.post('/calccompoundadd')
+async def calccompoundadd(request):
     data = request.json
     P = data['P']
     Pmt = data['PMT']
