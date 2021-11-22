@@ -1,5 +1,5 @@
 # CompoundIntPy
 
-Hello! This is just a project I started to teach myself how to deploy a Python app
+Hello! 
 
-It will do some simple calculations for Compound Interest through a REST API 
+This is just a project I started to try out a Python application using REST API 
