@@ -13,7 +13,7 @@ app = Sanic(__name__)
 #   where 
 #       Total = the future value of the investment/loan, including interest
 #       P = the principal investment amount(the initial deposit or loan amount)
-#       PMT = the monthly payment
+#       Pmt = the monthly payment
 #       r = the annual interest rate(decimal)
 #       n = the number of times that interest is compounded per year, or variable t. 
 #           (365 = daily, 96 = 4× month or weekly, 48 = 3× month, 24 = 2× month, 12 = monthly, 4 = quarterly, etc.)
@@ -21,15 +21,15 @@ app = Sanic(__name__)
 #
 # The values are received through sanic app.route /calculate endpoint as JSON key values 
 # and the result is returned in the same manner as a JSON object when the calculation is complete.
-@app.post('/calculate')
-async def calculate(request):
+@app.post('/compoundadd')
+async def compound_add(request):
     data = request.json
     P = data['P']
-    PMT = data['PMT']
+    Pmt = data['PMT']
     r = data['r']
     n = data['n']
     t = data['t']
-    Total = (P(1+r/n) ^ (n*t)) + (PMT * (((1 + r/n) ^ (n*t) - 1) / (r/n)) * (1+r/n))
+    Total = (P(1+r/n) ^ (n*t)) + (Pmt * (((1 + r/n) ^ (n*t) - 1) / (r/n)) * (1+r/n))
     diff = Total - P
     pMonth = diff / n
     response = json({
