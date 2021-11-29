@@ -39,5 +39,19 @@ async def contribution_handler(request):
     })
     return response
 
+# This endpoint calculates the compound interest. 
+# Formula is : interest = P(1+r/n)^(n*t)
+@app.post('/interest')
+async def interest_handler(request):
+    data = request.json
+    P = data['P']
+    r = data['r']
+    n = data['n']
+    t = data['t']
+    response = json({
+        'Total': (P(1+r/n) ^ (n*t))
+    })
+    return response
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=8000)
