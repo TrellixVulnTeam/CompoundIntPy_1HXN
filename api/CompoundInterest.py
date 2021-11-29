@@ -6,12 +6,12 @@ app = Sanic(__name__)
 # Sanic application route that calculates: 
 #   Compound interest for a given principal using a specified compound rate and number of years with monthly contributions.
 #   Compound interest is calculated using the formula: 
-#       Total = Comopound interest for principal + Future value of a series.
+#       Total = Compound interest for principal + Future value of a series.
 #       Compound interest for principal = P(1+r/n)^(nt)
 #       Future value of a series = PMT * {[(1 + r/n)(nt) - 1] / (r/n)} * (1+r/n)^nt * (1+r/n)
 #       Total = [ P(1+r/n)^(nt) ] + [ PMT * (((1 + r/n)^(nt) - 1) / (r/n)) * (1+r/n)]
 #   where 
-#       Total = the future value of the investment/loan, including interest
+#       total = the future value of the investment/loan, including interest
 #       P = the principal investment amount(the initial deposit or loan amount)
 #       Pmt = the monthly payment
 #       r = the annual interest rate(decimal)
@@ -21,19 +21,19 @@ app = Sanic(__name__)
 #
 # The values are received through sanic app.route /calculate endpoint as JSON key values 
 # and the result is returned in the same manner as a JSON object when the calculation is complete.
-@app.post('/compoundadd')
-async def compound_add(request):
+@app.post('/contribution')
+async def contribution_handler(request):
     data = request.json
     P = data['P']
     Pmt = data['PMT']
     r = data['r']
     n = data['n']
     t = data['t']
-    Total = (P(1+r/n) ^ (n*t)) + (Pmt * (((1 + r/n) ^ (n*t) - 1) / (r/n)) * (1+r/n))
-    diff = Total - P
+    total = (P(1+r/n) ^ (n*t)) + (Pmt * (((1 + r/n) ^ (n*t) - 1) / (r/n)) * (1+r/n))
+    diff = total - P
     pMonth = diff / n
     response = json({
-        'Total': Total,
+        'Total': total,
         'Contributions p/Month': pMonth,
         'Difference': diff
     })
